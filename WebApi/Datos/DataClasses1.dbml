@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="prueba" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-BB6VPJVM\MSSQLSERVER01;Initial Catalog=prueba;User ID=DoxaSeg" SettingsObjectName="Datos.Properties.Settings" SettingsPropertyName="pruebaConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.cambiarautores" Method="cambiarautores">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="identificacion" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="nombreCompleto" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="fechaNacimiento" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="ciudad" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(150)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.cambiarlibros" Method="cambiarlibros">
+    <Parameter Name="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="titulo" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="years" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="noPaginas" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="identificacion" Type="System.String" DbType="VarChar(250)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.insertaautores" Method="insertaautores">
+    <Parameter Name="identificacion" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="nombreCompleto" Type="System.String" DbType="VarChar(250)" />
+    <Parameter Name="fechaNacimiento" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="ciudad" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(150)" />
+    <ElementType Name="insertaautoresResult">
+      <Column Name="" Member="Column1" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.insertalibros" Method="insertalibros">
+    <Parameter Name="titulo" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="years" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="noPaginas" Type="System.Int16" DbType="SmallInt" />
+    <Parameter Name="identificacion" Type="System.String" DbType="VarChar(250)" />
+    <ElementType Name="insertalibrosResult">
+      <Column Name="" Member="Column1" Type="System.Decimal" DbType="Decimal(38,0)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.obtenerautores" Method="obtenerautores">
+    <ElementType Name="obtenerautoresResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="identificacion" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="nombreCompleto" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="fechaNacimiento" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="ciudad" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.obtenerlibros" Method="obtenerlibros">
+    <ElementType Name="obtenerlibrosResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="titulo" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="years" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="noPaginas" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="identificacion" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

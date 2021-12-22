@@ -1,0 +1,14 @@
+C:\Users\DxDesarrollo\source\repos\Backend\Entidades\bin\Debug\Entidades.dll
+C:\Users\DxDesarrollo\source\repos\Backend\Entidades\bin\Debug\Entidades.pdb
+C:\Users\DxDesarrollo\source\repos\Backend\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\DxDesarrollo\source\repos\Backend\Entidades\obj\Debug\Entidades.dll
+C:\Users\DxDesarrollo\source\repos\Backend\Entidades\obj\Debug\Entidades.pdb
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\bin\Debug\Entidades.dll
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\bin\Debug\Entidades.pdb
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\obj\Debug\Entidades.dll
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\obj\Debug\Entidades.pdb
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\bin\Debug\Kendo.DynamicLinq.dll
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\bin\Debug\System.Linq.Dynamic.dll
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\obj\Debug\Entidades.csprojAssemblyReference.cache
+C:\Users\DxDesarrollo\source\repos\WebApi\Entidades\obj\Debug\Entidades.csproj.CopyComplete

@@ -1,0 +1,188 @@
+﻿<div class="row">
+    <div class="col-12">
+        <div id="gridLibros"></div>
+    </div>
+</div>
+
+<script id="popupTemplate" type="text/x-kendo-template">
+    <div class="k-edit-label">
+        <label for="autores">autores:</label>
+    </div>
+    <div class="k-edit-field">
+        <input id="autores" name="autores" data-bind="value:autores" required />
+        <span class="k-invalid-msg" data-for="autores"></span>
+    </div>
+   
+</script>
+
+<script>
+    $(document).ready(function () {    
+
+        var urls = "http://localhost:58406";
+        var gridDataSource = new kendo.data.DataSource({
+            
+        });
+
+        function initDropDownLists() {
+            var categories = $("#autores").kendoDropDownList({
+                optionLabel: "Select autor...",
+                dataTextField: "NombreCompleto",
+                dataValueField: "Identificacion",
+                dataSource: {
+                    type: "odata-v4",
+                    serverFiltering: true,
+                    transport: {
+                        read: "http://localhost:58406/api/autores"
+                    }
+                }
+            }).data("kendoDropDownList");
+        }
+
+        $("#gridLibros").kendoGrid({
+            dataSource: {
+                type: "odata-v4",
+                transport: {
+                    read: {
+                        url: "http://localhost:58406/api/libros"
+                    },
+                    create: {
+                        url: "http://localhost:58406/api/libros"
+
+                    },
+                    //create: {
+                    //    url: "http://localhost:58406/api/libros"
+                    //},
+                    update: {
+                        url: function (data) {
+                            return urls + "/api/libros/" + data.Id;
+                        }
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number" },
+                            Titulo: { type: "string" },
+                            Years: { type: "string" },
+                            NoPaginas: { type: "string" },
+                            Identificacion: { type: "string" }
+                        }
+                    }
+                }
+            },
+            columns: [{
+                field: "Titulo",
+                filterable: false
+            },
+                "Id",
+            {
+                field: "Years",
+                title: "Año"
+            },
+            {
+                field: "NoPaginas",
+                title: "No Páginas"
+            },
+            {
+                field: "Identificacion",
+                title: "Autor",
+                editor: function (container) { // use a dropdownlist as an editor
+                    // create an input element with id and name set as the bound field (brandId)
+                    var input = $('<input id="Identificacion" name="Identificacion">');
+                    // append to the editor container
+                    input.appendTo(container);
+
+                    // initialize a dropdownlist
+                    input.kendoDropDownList({
+                        optionLabel: "Select autor...",
+                        dataTextField: "NombreCompleto",
+                        dataValueField: "Identificacion",
+                        dataSource: {
+                            type: "odata-v4",
+                            serverFiltering: true,
+                            transport: {
+                                read: "http://localhost:58406/api/autores"
+                            }
+                        }// bind it to the brands array
+                    }).appendTo(container);
+                }
+            },
+            { command: ["edit"] }
+            ],
+            columnMenu: {
+                filterable: true
+            },
+            toolbar: ["create", "save", "cancel"],
+            editable: "inline",            
+            autoBind: true,
+            filterable:true
+        });
+        
+
+        function onDataBound(e) {
+            var grid = this;
+            grid.table.find("tr").each(function () {
+                var dataItem = grid.dataItem(this);
+                var themeColor = dataItem.Discontinued ? 'success' : 'error';
+                var text = dataItem.Discontinued ? 'available' : 'not available';
+
+                $(this).find(".badgeTemplate").kendoBadge({
+                    themeColor: themeColor,
+                    text: text,
+                });
+
+                $(this).find(".rating").kendoRating({
+                    min: 1,
+                    max: 5,
+                    label: false,
+                    selection: "continuous"
+                });
+
+                $(this).find(".sparkline-chart").kendoSparkline({
+                    legend: {
+                        visible: false
+                    },
+                    data: [dataItem.TargetSales],
+                    type: "bar",
+                    chartArea: {
+                        margin: 0,
+                        width: 180,
+                        background: "transparent"
+                    },
+                    seriesDefaults: {
+                        labels: {
+                            visible: true,
+                            format: '{0}%',
+                            background: 'none'
+                        }
+                    },
+                    categoryAxis: {
+                        majorGridLines: {
+                            visible: false
+                        },
+                        majorTicks: {
+                            visible: false
+                        }
+                    },
+                    valueAxis: {
+                        type: "numeric",
+                        min: 0,
+                        max: 130,
+                        visible: false,
+                        labels: {
+                            visible: false
+                        },
+                        minorTicks: { visible: false },
+                        majorGridLines: { visible: false }
+                    },
+                    tooltip: {
+                        visible: false
+                    }
+                });
+
+                kendo.bind($(this), dataItem);
+            });
+        }
+    });
+</script>

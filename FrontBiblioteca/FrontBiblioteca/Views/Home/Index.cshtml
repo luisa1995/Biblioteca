@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div>
+    @*<link rel="stylesheet" href="styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="styles/kendo.default.mobile.min.css" />
+
+    <script src="js/jquery.min.js"></script>
+
+
+    <script src="js/kendo.all.min.js"></script>*@
+</div>
+<div class="row">
+    <div class="col-12">
+        <div id="grid"></div>     
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $(".textButton").kendoButton();
+        //var crudServiceBaseUrl = "http://localhost:58406/api",
+        //    dataSource = new kendo.data.DataSource({
+        //        transport: {
+        //            read: {
+        //                url: crudServiceBaseUrl + "/autores",
+        //                dataType: "jsonp"
+        //            },
+        //            update: {
+        //                url: crudServiceBaseUrl + "/autores/Update",
+        //                dataType: "jsonp"
+        //            },
+        //            destroy: {
+        //                url: crudServiceBaseUrl + "/autores/Destroy",
+        //                dataType: "jsonp"
+        //            },
+        //            parameterMap: function (options, operation) {
+        //                if (operation !== "read" && options.models) {
+        //                    return { models: kendo.stringify(options.models) };
+        //                }
+        //            }
+        //        },
+        //        batch: true,
+        //        pageSize: 20,
+        //        autoSync: true,
+        //        schema: {
+        //            model: {
+        //                id: "Id",
+        //                fields: {
+        //                    Identificacion: { type: "string" },
+        //                    Id: { type: "number" },
+        //                    NombreCompleto: { type: "string" },
+        //                    Ciudad: { type: "string" },
+        //                    FechaNacimiento: { type: "date" },
+        //                    Email: { type: "string" }                            
+        //                }
+        //            }
+        //        }
+        //    });
+
+
+
+
+        $("#grid").kendoGrid({
+            dataSource: {
+                type: "odata-v4",
+                transport: {
+                    read: {
+                        url: "http://localhost:58406/api/autores"
+                    },
+                    create: {
+                        url: "http://localhost:58406/api/autores"
+                    }
+                },
+                schema: {
+                    id: "Id",
+                    model: {
+                        fields: {
+                            Identificacion: { type: "string" },
+                            Id: { type: "number" },
+                            NombreCompleto: { type: "string" },
+                            Ciudad: { type: "string" },
+                            FechaNacimiento: { type: "date" },
+                            Email: { type: "string" }
+                        }
+                    }
+                },
+                pageSize: 20
+            },
+            columnMenu: {
+                filterable: true
+            },            
+            columns: [{
+                field:"Identificacion",
+                    filterable: false
+                },
+                "Id",
+                 {
+                    field: "NombreCompleto",
+                    title: "NombreCompleto"
+                },
+                {
+                    field: "FechaNacimiento",
+                    title: "Fecha de Nacimiento",
+                    format: "{0:MM/dd/yyyy}"
+                },
+                {
+                    field: "Ciudad",
+                    title: "Ciudad"
+                },
+                {
+                    field: "Email",
+                    title: "E-mail"
+                }
+            ],
+            height: 680,
+            toolbar: ["create", "save", "cancel"],
+            editable: "incell",
+            autoBind: true,
+            filterable:true
+        });
+
+
+        function onDataBound(e) {
+            var grid = this;
+            grid.table.find("tr").each(function () {
+                var dataItem = grid.dataItem(this);
+                var themeColor = dataItem.Discontinued ? 'success' : 'error';
+                var text = dataItem.Discontinued ? 'available' : 'not available';
+
+                $(this).find(".badgeTemplate").kendoBadge({
+                    themeColor: themeColor,
+                    text: text,
+                });
+
+                $(this).find(".rating").kendoRating({
+                    min: 1,
+                    max: 5,
+                    label: false,
+                    selection: "continuous"
+                });
+
+                $(this).find(".sparkline-chart").kendoSparkline({
+                    legend: {
+                        visible: false
+                    },
+                    data: [dataItem.TargetSales],
+                    type: "bar",
+                    chartArea: {
+                        margin: 0,
+                        width: 180,
+                        background: "transparent"
+                    },
+                    seriesDefaults: {
+                        labels: {
+                            visible: true,
+                            format: '{0}%',
+                            background: 'none'
+                        }
+                    },
+                    categoryAxis: {
+                        majorGridLines: {
+                            visible: false
+                        },
+                        majorTicks: {
+                            visible: false
+                        }
+                    },
+                    valueAxis: {
+                        type: "numeric",
+                        min: 0,
+                        max: 130,
+                        visible: false,
+                        labels: {
+                            visible: false
+                        },
+                        minorTicks: { visible: false },
+                        majorGridLines: { visible: false }
+                    },
+                    tooltip: {
+                        visible: false
+                    }
+                });
+
+                kendo.bind($(this), dataItem);
+            });
+        }
+
+
+    });
+</script>
